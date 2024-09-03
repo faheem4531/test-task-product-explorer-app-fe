@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import Link from "next/link";
 
 const Home = () => {
   const containerStyle = {
@@ -11,13 +12,13 @@ const Home = () => {
     fontWeight: 500,
     transition: "background-color 0.3s ease-in-out",
   }
-  
+
   return (
     <Box sx={{
       display: 'flex',
       bgcolor: "#cdcec9",
       height: "100vh",
-      padding: "40px 200px",
+      padding: { md: "40px 200px", sm: "30px", xs: "20px" },
       gap: "20px"
     }}>
       <Box sx={{
@@ -29,7 +30,9 @@ const Home = () => {
         },
         ...containerStyle
       }}>
-        Dashboard
+        <Link href={"/dashboard"} >
+          Dashboard
+        </Link>
       </Box>
       <Box sx={{
         bgcolor: "#b7c0bb",
@@ -40,7 +43,9 @@ const Home = () => {
         },
         ...containerStyle
       }}>
-        Products
+        <Link href={"/product-listing"} >
+          Products
+        </Link>
       </Box>
     </Box>
   );
