@@ -8,11 +8,11 @@ interface ProductCardProps {
     price: number;
     brand: string;
     category: string;
-    ratting: number;
+    rating: number;
     onClick: () => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description, price, brand, category, ratting, onClick }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description, price, brand, category, rating, onClick }) => {
     return (
         <Box sx={{
             borderRadius: "4px", bgcolor: "#b7c0bb", width: "280px", m: "0 auto", cursor: "pointer",
@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description
                         borderRadius: "4px",
                         fontSize: "14px"
                     }}>
-                    {ratting}
+                    {rating}
                 </Typography>
             </Box>
             <Box sx={{ padding: "10px 10px 20px" }}>

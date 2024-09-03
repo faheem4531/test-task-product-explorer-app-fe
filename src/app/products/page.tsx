@@ -14,7 +14,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Apple",
       category: "smartphone",
       stock: 92,
@@ -27,7 +27,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple,An apple mobile which is nothing like apple.An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "microsoft surface",
       category: "smartphone",
       stock: 92,
@@ -40,7 +40,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Impression of Acqua Di Gio",
       category: "smartphone",
       stock: 92,
@@ -53,7 +53,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Apple",
       category: "smartphone",
       stock: 92,
@@ -66,7 +66,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Apple",
       category: "smartphone",
       stock: 92,
@@ -79,7 +79,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Apple",
       category: "smartphone",
       stock: 92,
@@ -92,7 +92,7 @@ const ProductListing = () => {
       title: "Product 1",
       description: "An apple mobile which is nothing like apple",
       price: 459,
-      ratting: 4.8,
+      rating: 4.8,
       brand: "Apple",
       category: "smartphone",
       stock: 92,
@@ -102,7 +102,7 @@ const ProductListing = () => {
       id: "p6"
     },
   ]
-  
+
   function handleNavigate(id: string) {
     router.push(`products/${id}`);
   }
@@ -132,7 +132,7 @@ const ProductListing = () => {
               price={item.price}
               brand={item.brand}
               category={item.category}
-              ratting={item.ratting}
+              rating={item.rating}
             />
           </Grid>
           )}
