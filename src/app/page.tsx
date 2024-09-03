@@ -42,7 +42,7 @@ const Home = () => {
         },
         ...containerStyle
       }}>
-        <Link href={"/product-listing"} >
+        <Link href={"/products"} >
           Products
         </Link>
       </Box>

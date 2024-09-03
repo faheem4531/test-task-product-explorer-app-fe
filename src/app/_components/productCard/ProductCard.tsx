@@ -9,16 +9,19 @@ interface ProductCardProps {
     brand: string;
     category: string;
     ratting: number;
+    onClick: () => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description, price, brand, category, ratting }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description, price, brand, category, ratting, onClick }) => {
     return (
         <Box sx={{
-            borderRadius: "4px", bgcolor: "#b7c0bb", width: "280px", m: "0 auto",
+            borderRadius: "4px", bgcolor: "#b7c0bb", width: "280px", m: "0 auto", cursor: "pointer",
             "&:hover": {
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
             },
-        }}>
+        }}
+            onClick={onClick}
+        >
             <Box sx={{ position: "relative" }}>
                 <Typography
                     sx={{
