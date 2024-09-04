@@ -1,5 +1,5 @@
-// components/FlatList.tsx
 import React from "react";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Box, Grid, CircularProgress, Typography } from "@mui/material";
 
@@ -11,9 +11,10 @@ interface FlatListProps<T> {
   loader?: React.ReactNode;
   endMessage?: React.ReactNode;
   emptyMessage?: React.ReactNode;
+  errorMessage?: React.ReactNode; // New error message prop
   keyExtractor: (item: T) => string | number;
   loading: boolean;
-  error?: boolean; // Added error prop to handle error state
+  error?: boolean; // New prop to indicate if there is an error
 }
 
 const FlatList = <T,>({
@@ -24,18 +25,18 @@ const FlatList = <T,>({
   loader,
   endMessage,
   emptyMessage,
+  errorMessage,
   keyExtractor,
   loading,
-  error,
+  error, // New error prop
 }: FlatListProps<T>) => {
   return (
     <InfiniteScroll
       dataLength={data.length}
       next={loadMore}
-      hasMore={hasMore && !error} // Prevent loading more when there is an error
+      hasMore={hasMore && !error} // Do not load more if there is an error
       loader={
-        // Always display the loader if loading
-        loading ? (
+        !error ? (
           <Box
             sx={{
               display: "flex",
@@ -48,32 +49,19 @@ const FlatList = <T,>({
           </Box>
         ) : null
       }
-      endMessage={
-        !loading && !error && !hasMore ? ( // Ensure endMessage only shows when loading is false, no error, and no more items
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100px",
-              textAlign: "center",
-              padding: "20px",
-            }}
-          >
-            {endMessage || <Typography>No more items to load.</Typography>}
-          </Box>
-        ) : null
-      }
+      endMessage={error ? null : endMessage}
       style={{ overflow: "hidden" }}
     >
       <Box sx={{ m: "0 auto 100px", width: "100%" }}>
-        {error ? ( // Display error message if error exists
+        {loading && data.length === 0 ? (
+          <Box></Box>
+        ) : error ? (
           <Box sx={{ textAlign: "center", padding: "20px" }}>
-            <Typography color="error">Failed to load data.</Typography>
+            {errorMessage || <Typography>Error loading data.</Typography>}
           </Box>
-        ) : data.length === 0 && !loading ? ( // Display empty message if no data and not loading
+        ) : data.length === 0 ? (
           <Box sx={{ textAlign: "center", padding: "20px" }}>
-            {emptyMessage || <Typography>No data available.</Typography>}
+            {emptyMessage}
           </Box>
         ) : (
           <Grid container spacing={2}>

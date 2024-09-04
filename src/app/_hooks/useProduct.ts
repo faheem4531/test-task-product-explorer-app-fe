@@ -1,10 +1,6 @@
-// react imports
+// hooks/useProducts.ts
 import { useEffect, useState, useCallback } from "react";
-
-// hooks
 import useDebounce from "./useDebounce";
-
-// services and constants
 import { getProducts } from "../_api/apiService";
 import { API_LIMIT } from "../_utils/constants";
 
@@ -18,16 +14,19 @@ const useProducts = (searchQuery: string, limit: number = API_LIMIT) => {
   const fetchProducts = useCallback(
     async (query: string, page: number, limit: number) => {
       setLoading(true);
-      setError(null);
+      setError(null); // Reset error before fetching
 
       try {
         const response = await getProducts(query, page, limit);
         const { data, totalPages } = response;
 
-        setProducts((prevProducts) => [...prevProducts, ...data]);
+        setProducts((prevProducts) =>
+          page === 1 ? data : [...prevProducts, ...data]
+        );
         setHasMore(page < totalPages);
-      } catch (err) {
-        setError("Failed to fetch products");
+      } catch (err: any) {
+        console.error("Error fetching products:", err.message);
+        setError(err.message); // Improved error message handling
       } finally {
         setLoading(false);
       }

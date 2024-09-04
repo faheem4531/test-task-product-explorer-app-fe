@@ -24,7 +24,7 @@ const ProductListing = () => {
   const router = useRouter();
 
   const [searchTerm, setSearchTerm] = useState("");
-  const { products, loading, loadMoreProducts, hasMore } =
+  const { products, loading, loadMoreProducts, hasMore, error } =
     useProducts(searchTerm);
 
   const handleNavigate = (id: string) => {
@@ -35,6 +35,7 @@ const ProductListing = () => {
     setSearchTerm(event.target.value);
   };
 
+  console.log(error, "error");
   return (
     <Box
       sx={{
@@ -85,6 +86,7 @@ const ProductListing = () => {
         emptyMessage={<Typography>No products found</Typography>}
         keyExtractor={(item) => item._id}
         loading={loading}
+        error={error ? true : false}
       />
     </Box>
   );
