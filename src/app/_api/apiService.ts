@@ -1,4 +1,5 @@
 // services/apiService.ts
+import { getSessionId } from "../_utils/helpers";
 import apiClient from "./apiClient";
 
 export interface ApiResponse {
@@ -15,12 +16,13 @@ export const getProducts = async (
   limit: number = 60
 ): Promise<ApiResponse> => {
   try {
+    const sessionId = getSessionId();
     const response = await apiClient.get("/products", {
       params: {
         search: searchQuery,
         page,
         limit,
-        sessionId: "temp", // Example session ID
+        sessionId,
       },
     });
     return response.data;
@@ -29,18 +31,15 @@ export const getProducts = async (
   }
 };
 
-export const getProductById = async (
-  id: string,
-  sessionId: string = "test"
-): Promise<IProduct> => {
+export const getProductById = async (id: string): Promise<IProduct> => {
   try {
+    const sessionId = getSessionId();
     const response = await apiClient.get(`/products/${id}`, {
       params: { sessionId },
     });
     return response.data;
   } catch (error: any) {
-    handleError(error, "Failed to fetch product details");
-    throw error; // Add this line to ensure that the function always returns a value or throws
+    throw handleError(error, "Failed to fetch product details");
   }
 };
 
