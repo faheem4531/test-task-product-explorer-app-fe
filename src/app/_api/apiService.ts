@@ -25,22 +25,40 @@ export const getProducts = async (
     });
     return response.data;
   } catch (error: any) {
-    // Improved error handling with additional logging and checks
-    if (error.response) {
-      console.error("Error response:", error.response);
-      throw new Error(
-        `Failed to fetch products: ${
-          error.response.data.message ||
-          error.response.statusText ||
-          "Unknown error"
-        }`
-      );
-    } else if (error.request) {
-      console.error("Error request:", error.request);
-      throw new Error("Failed to fetch products: No response from the server");
-    } else {
-      console.error("Error message:", error.message);
-      throw new Error(`Failed to fetch products: ${error.message}`);
-    }
+    throw handleError(error, "Failed to fetch products");
+  }
+};
+
+export const getProductById = async (
+  id: string,
+  sessionId: string = "test"
+): Promise<IProduct> => {
+  try {
+    const response = await apiClient.get(`/products/${id}`, {
+      params: { sessionId },
+    });
+    return response.data;
+  } catch (error: any) {
+    handleError(error, "Failed to fetch product details");
+    throw error; // Add this line to ensure that the function always returns a value or throws
+  }
+};
+
+const handleError = (error: any, defaultMessage: string) => {
+  if (error.response) {
+    console.error("Error response:", error.response);
+    throw new Error(
+      `${defaultMessage}: ${
+        error.response.data.message ||
+        error.response.statusText ||
+        "Unknown error"
+      }`
+    );
+  } else if (error.request) {
+    console.error("Error request:", error.request);
+    throw new Error(`${defaultMessage}: No response from the server`);
+  } else {
+    console.error("Error message:", error.message);
+    throw new Error(`${defaultMessage}: ${error.message}`);
   }
 };
