@@ -15,7 +15,7 @@ export const getProducts = async (
   limit: number = 60
 ): Promise<ApiResponse> => {
   try {
-    const response = await apiClient.get("/productss", {
+    const response = await apiClient.get("/products", {
       params: {
         search: searchQuery,
         page,
