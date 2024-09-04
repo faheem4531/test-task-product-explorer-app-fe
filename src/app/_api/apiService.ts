@@ -52,6 +52,21 @@ export const trackProductClick = async (id: string) => {
   }
 };
 
+export const trackProductTimeSpend = async (
+  id: string,
+  timeSpend: number = 0
+) => {
+  try {
+    const sessionId = getSessionId();
+    await apiClient.post(`/products/${id}/time-spend`, {
+      sessionId,
+      timeSpend: Math.floor(timeSpend),
+    });
+  } catch (error: any) {
+    throw handleError(error, "Failed to track product time-spent");
+  }
+};
+
 export const handleError = (error: any, defaultMessage: string): void => {
   if (error.response) {
     // Server responded with an error

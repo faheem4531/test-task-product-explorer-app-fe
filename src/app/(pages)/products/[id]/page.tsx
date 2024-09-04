@@ -5,36 +5,45 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 // third party imports
-import { getProductById } from "@/app/_api/apiService";
+import { getProductById, trackProductTimeSpend } from "@/app/_api/apiService";
 import { AppLoader } from "@/app/_components";
 import { Box, Typography } from "@mui/material";
 
 const Product = () => {
   const { id } = useParams();
-
   const [data, setData] = useState<IProduct | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [startTime, setStartTime] = useState<number>(Date.now());
 
   useEffect(() => {
-    if (typeof id === "string") {
-      const fetchProduct = async () => {
-        try {
+    const fetchProduct = async () => {
+      try {
+        if (typeof id === "string") {
           const product = await getProductById(id);
           setData(product);
-        } catch (err) {
-          setError("Failed to fetch product details");
-        } finally {
-          setLoading(false);
+        } else {
+          setError("Invalid product ID.");
         }
-      };
+      } catch (err) {
+        setError("Failed to fetch product details");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchProduct();
-    } else {
-      setError("Invalid product ID.");
-      setLoading(false);
-    }
-  }, [id]);
+    fetchProduct();
+
+    // Track time spent when component unmounts
+    return () => {
+      const timeSpent = (Date.now() - startTime) / 1000; // Time in seconds
+      if (typeof id === "string") {
+        trackProductTimeSpend(id, timeSpent).catch((err) =>
+          console.error("Failed to track time spent:", err)
+        );
+      }
+    };
+  }, [id, startTime]);
 
   if (error) {
     return (
