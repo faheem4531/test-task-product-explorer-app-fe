@@ -1,7 +1,11 @@
+// react imports
 import { useEffect, useState, useCallback } from "react";
 
-import { getProducts } from "../_api/apiService";
+// hooks
+import useDebounce from "./useDebounce";
 
+// services and constants
+import { getProducts } from "../_api/apiService";
 import { API_LIMIT } from "../_utils/constants";
 
 const useProducts = (searchQuery: string, limit: number = API_LIMIT) => {
@@ -31,17 +35,19 @@ const useProducts = (searchQuery: string, limit: number = API_LIMIT) => {
     []
   );
 
+  const debouncedFetchProducts = useDebounce(fetchProducts, 500);
+
   useEffect(() => {
     setPage(1);
     setProducts([]);
-    fetchProducts(searchQuery, 1, limit);
-  }, [searchQuery, fetchProducts, limit]);
+    debouncedFetchProducts(searchQuery, 1, limit);
+  }, [searchQuery, debouncedFetchProducts, limit]);
 
   useEffect(() => {
     if (page > 1) {
-      fetchProducts(searchQuery, page, limit);
+      debouncedFetchProducts(searchQuery, page, limit);
     }
-  }, [page, searchQuery, fetchProducts, limit]);
+  }, [page, searchQuery, debouncedFetchProducts, limit]);
 
   const loadMoreProducts = () => {
     if (hasMore && !loading) {

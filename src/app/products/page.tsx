@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 
 // hooks and components imports
-import useDebounce from "../_hooks/useDebounce";
 import useProducts from "../_hooks/useProduct";
 import ProductCard from "../_components/productCard/ProductCard";
 import { FlatList } from "../_components";
@@ -34,10 +33,7 @@ const ProductListing = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    debouncedSearch(event.target.value);
   };
-
-  const debouncedSearch = useDebounce(handleSearchChange, 500);
 
   return (
     <Box
