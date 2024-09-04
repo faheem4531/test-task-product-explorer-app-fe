@@ -19,6 +19,7 @@ import { FlatList } from "../../_components";
 
 // icons import
 import SearchIcon from "@mui/icons-material/Search";
+import { trackProductClick } from "@/app/_api/apiService";
 
 const ProductListing = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const ProductListing = () => {
     useProducts(searchTerm);
 
   const handleNavigate = (id: string) => {
+    trackProductClick(id);
     router.push(`products/${id}`);
   };
 
@@ -35,7 +37,6 @@ const ProductListing = () => {
     setSearchTerm(event.target.value);
   };
 
-  console.log(error, "error");
   return (
     <Box
       sx={{

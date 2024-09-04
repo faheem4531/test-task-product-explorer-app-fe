@@ -43,9 +43,21 @@ export const getProductById = async (id: string): Promise<IProduct> => {
   }
 };
 
-const handleError = (error: any, defaultMessage: string) => {
+export const trackProductClick = async (id: string) => {
+  try {
+    const sessionId = getSessionId();
+    await apiClient.post(`/products/${id}/click`, { sessionId });
+  } catch (error: any) {
+    throw handleError(error, "Failed to track product click");
+  }
+};
+
+export const handleError = (error: any, defaultMessage: string): void => {
   if (error.response) {
-    console.error("Error response:", error.response);
+    // Server responded with an error
+    console.error("Error response data:", error.response.data);
+    console.error("Error response status:", error.response.status);
+    console.error("Error response headers:", error.response.headers);
     throw new Error(
       `${defaultMessage}: ${
         error.response.data.message ||
@@ -54,9 +66,11 @@ const handleError = (error: any, defaultMessage: string) => {
       }`
     );
   } else if (error.request) {
+    // No response received
     console.error("Error request:", error.request);
-    throw new Error(`${defaultMessage}: No response from the server`);
+    throw new Error(`${defaultMessage}: No response from server`);
   } else {
+    // Other errors
     console.error("Error message:", error.message);
     throw new Error(`${defaultMessage}: ${error.message}`);
   }
