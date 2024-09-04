@@ -1,14 +1,18 @@
 'use client'
 
-import { Box, Typography } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import ProductCard from "../_components/productCard/ProductCard";
 
 const image = "https://res.cloudinary.com/dplkbzr6j/image/upload/v1725395359/bookmark-foo/oyq81uhi7ntnlym0hly8.webp"
 
 const ProductListing = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter()
+
   const cards = [
     {
       title: "Product 1",
@@ -107,6 +111,10 @@ const ProductListing = () => {
     router.push(`products/${id}`);
   }
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <Box sx={{
       m: "50px 50px",
@@ -117,7 +125,20 @@ const ProductListing = () => {
         Products
       </Typography>
       <Box m="20px 0">
-        Searchbar
+        <TextField
+          variant="outlined"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
       </Box>
       <Box sx={{
         m: "0 auto 100px",
