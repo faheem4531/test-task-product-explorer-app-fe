@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid2';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ProductCard from "../_components/productCard/ProductCard";
+import useDebounce from '../_hooks/useDebounce';
 
 const image = "https://res.cloudinary.com/dplkbzr6j/image/upload/v1725395359/bookmark-foo/oyq81uhi7ntnlym0hly8.webp"
 
@@ -112,8 +113,11 @@ const ProductListing = () => {
   }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(event.target.value);
     setSearchTerm(event.target.value);
   };
+
+  const debouncedSearch = useDebounce(handleSearchChange, 500);
 
   return (
     <Box sx={{
