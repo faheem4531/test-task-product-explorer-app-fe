@@ -5,14 +5,19 @@ import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import AppLoader from '../_components/AppLoader/AppLoader';
 import ProductCard from "../_components/productCard/ProductCard";
 import useDebounce from '../_hooks/useDebounce';
+import useProducts from '../_hooks/useProduct';
 
 const image = "https://res.cloudinary.com/dplkbzr6j/image/upload/v1725395359/bookmark-foo/oyq81uhi7ntnlym0hly8.webp"
 
 const ProductListing = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter()
+  const { products, loading } = useProducts();
+
+  console.log(products, "proo")
 
   const cards = [
     {
@@ -144,27 +149,31 @@ const ProductListing = () => {
           }}
         />
       </Box>
-      <Box sx={{
-        m: "0 auto 100px",
-      }}>
-        <Grid container spacing={2}>
-          {cards.map((item, index) => <Grid size={{ lg: 3, md: 4, sm: 6, xs: 12 }} key={index} >
-            <ProductCard
-              onClick={() => handleNavigate(item.id)}
-              thumbnail={item.thumbnail}
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              brand={item.brand}
-              category={item.category}
-              rating={item.rating}
-            />
+      <AppLoader loading={loading}>
+
+        <Box sx={{
+          m: "0 auto 100px",
+        }}>
+          <Grid container spacing={2}>
+            {products?.map((item, index) => <Grid size={{ lg: 3, md: 4, sm: 6, xs: 12 }} key={index} >
+              <ProductCard
+                onClick={() => handleNavigate(item.id)}
+                thumbnail={image}
+                title={item.title}
+                description={item.description}
+                price={item.price}
+                brand={item.brand}
+                category={item.category}
+                rating={item.rating}
+              />
+            </Grid>
+            )}
           </Grid>
-          )}
-        </Grid>
-      </Box>
+        </Box>
+      </AppLoader>
 
     </Box>
+
   );
 }
 
