@@ -1,16 +1,21 @@
-import { Box } from "@mui/material";
+'use client'
 
-const Dashboard = () => {
+import { Box } from "@mui/material";
+import React from 'react';
+import BarChart from "./components/BarChart";
+import FunnelChart from "./components/FunnelChart";
+
+const Dashboard: React.FC = () => {
 
   return (
-    <Box sx={{
-      display: 'flex',
-      bgcolor: "#cdcec9",
-      height: "100vh",
-      padding: { md: "40px 200px", sm: "30px", xs: "20px" },
-      gap: "20px"
-    }}>
-     Dashboard
+    <Box
+      sx={{
+        height: "100vh",
+        m: "100px auto",
+      }}
+    >
+      <FunnelChart />
+      <BarChart />
     </Box>
   );
 }
