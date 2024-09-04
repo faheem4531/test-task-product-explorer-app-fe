@@ -1,12 +1,11 @@
-'use client'
+"use client";
 
 import { Box } from "@mui/material";
-import React from 'react';
+import React from "react";
 import BarChart from "./components/BarChart";
 import FunnelChart from "./components/FunnelChart";
 
 const Dashboard: React.FC = () => {
-
   return (
     <Box
       sx={{
@@ -18,6 +17,6 @@ const Dashboard: React.FC = () => {
       <BarChart />
     </Box>
   );
-}
+};
 
 export default Dashboard;

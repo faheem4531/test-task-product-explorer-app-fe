@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 
 // hooks and components imports
-import useProducts from "../_hooks/useProduct";
-import ProductCard from "../_components/productCard/ProductCard";
-import { FlatList } from "../_components";
+import useProducts from "../../_hooks/useProduct";
+import ProductCard from "../../_components/productCard/ProductCard";
+import { FlatList } from "../../_components";
 
 // icons import
 import SearchIcon from "@mui/icons-material/Search";
