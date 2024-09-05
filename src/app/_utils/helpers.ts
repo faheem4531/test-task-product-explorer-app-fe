@@ -239,7 +239,7 @@ export const getInteractionTrendChartOptions = (
 });
 
 export const processInteractionTrendChartData = (data: InteractionTrend[]) => {
-  const hours = data.map((item) => item.hour);
+  const hours = data.map((item) => (item.hour + 5) % 24);
 
   return {
     series: [
