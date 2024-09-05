@@ -35,10 +35,10 @@ const Home = () => {
       </Box>
       <Box sx={{
         bgcolor: "#173B45",
-        color: "#546976",
+        color: "#b7c0bb",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
         "&:hover": {
-          bgcolor: "#929c97"
+          bgcolor: "#0D2228"
         },
         ...containerStyle
       }}>
@@ -48,15 +48,15 @@ const Home = () => {
       </Box>
       <Box sx={{
         bgcolor: "#1A4870",
-        color: "#546976",
+        color: "#b7c0bb",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
         "&:hover": {
-          bgcolor: "#929c97"
+          bgcolor: "#0D2336"
         },
         ...containerStyle
       }}>
         <Link href={"/product-advisor"} >
-         Product Advisor
+          Product Advisor
         </Link>
       </Box>
     </Box>
