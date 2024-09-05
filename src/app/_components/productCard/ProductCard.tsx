@@ -16,8 +16,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description
     return (
         <Box sx={{
             borderRadius: "4px", bgcolor: "#b7c0bb", width: "280px", m: "0 auto", cursor: "pointer",
+            transition: "transform 0.3s ease",
             "&:hover": {
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
+                transform: "scale(1.05)",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
             },
         }}
             onClick={onClick}
