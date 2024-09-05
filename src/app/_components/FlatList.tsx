@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ThreeDots } from "react-loader-spinner";
 
@@ -91,7 +92,7 @@ const FlatList = <T,>({
         ) : (
           <Grid container spacing={2}>
             {data.map((item) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={keyExtractor(item)}>
+              <Grid size={{ xs: 12, md: 4, sm: 6, lg: 3 }} key={keyExtractor(item)}>
                 {renderItem(item)}
               </Grid>
             ))}

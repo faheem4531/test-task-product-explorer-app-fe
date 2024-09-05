@@ -7,7 +7,6 @@ import { useState } from "react";
 import {
   Box,
   Button,
-  Grid,
   InputAdornment,
   TextField,
   Typography
@@ -16,6 +15,7 @@ import {
 import { getProductRecommendations } from "@/app/_api/apiService";
 import ProductCard from "@/app/_components/productCard/ProductCard";
 import SearchIcon from "@mui/icons-material/Search";
+import Grid from '@mui/material/Grid2';
 import { ThreeDots } from "react-loader-spinner";
 
 const ProductAdvisor = () => {
@@ -148,10 +148,9 @@ const ProductAdvisor = () => {
               <>
                 <Typography>{recomendation}</Typography>
                 <Grid container spacing={2} mt={4}>
-                  {products.map((item, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  {products.map((item) => (
+                    <Grid size={{ xs: 12, md: 4, sm: 6, lg: 3 }} key={item._id}>
                       <ProductCard
-                        key={index}
                         onClick={() => handleNavigate(item._id)}
                         thumbnail={item.thumbnail}
                         title={item.title}
