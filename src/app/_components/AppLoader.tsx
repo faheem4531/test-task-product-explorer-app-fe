@@ -1,6 +1,6 @@
-import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid2";
 import React, { ReactNode } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 interface AppLoaderProps {
   loading: boolean;
@@ -25,7 +25,16 @@ const AppLoader: React.FC<AppLoaderProps> = ({ children, loading }) => {
             alignItems: "center",
           }}
         >
-          <CircularProgress sx={{ color: "#cdcec9" }} />
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#b7c0bb"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
         </Grid>
       )}
       {children}

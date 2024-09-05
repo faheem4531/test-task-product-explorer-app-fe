@@ -16,6 +16,7 @@ import {
 import { getProductRecommendations } from "@/app/_api/apiService";
 import ProductCard from "@/app/_components/productCard/ProductCard";
 import SearchIcon from "@mui/icons-material/Search";
+import { ThreeDots } from "react-loader-spinner";
 
 const ProductAdvisor = () => {
   const router = useRouter();
@@ -55,6 +56,16 @@ const ProductAdvisor = () => {
       >
         Search Relevant Product
       </Typography>
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
+        color="#29343b"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
       <Box m="20px 0" position={"relative"}>
         <TextField
           variant="outlined"

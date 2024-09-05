@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { ThreeDots } from "react-loader-spinner";
 
 interface FlatListProps<T> {
   data: T[];
@@ -45,7 +46,16 @@ const FlatList = <T,>({
               height: "100px",
             }}
           >
-            {loader || <CircularProgress />}
+            {loader || <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#29343b"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />}
           </Box>
         ) : null
       }

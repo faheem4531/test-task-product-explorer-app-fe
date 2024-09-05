@@ -1,25 +1,25 @@
 "use client";
 // react/next imports
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // third party imports
 import {
   Box,
-  CircularProgress,
   InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 
 // hooks and components imports
-import useProducts from "../../_hooks/useProduct";
-import ProductCard from "../../_components/productCard/ProductCard";
 import { FlatList } from "../../_components";
+import ProductCard from "../../_components/productCard/ProductCard";
+import useProducts from "../../_hooks/useProduct";
 
 // icons import
-import SearchIcon from "@mui/icons-material/Search";
 import { trackProductClick } from "@/app/_api/apiService";
+import SearchIcon from "@mui/icons-material/Search";
+import { ThreeDots } from "react-loader-spinner";
 
 const ProductListing = () => {
   const router = useRouter();
@@ -82,7 +82,16 @@ const ProductListing = () => {
         )}
         loadMore={loadMoreProducts}
         hasMore={hasMore}
-        loader={<CircularProgress />}
+        loader={<ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#29343b"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />}
         endMessage={<Typography>No more products</Typography>}
         emptyMessage={<Typography>No products found</Typography>}
         keyExtractor={(item) => item._id}
