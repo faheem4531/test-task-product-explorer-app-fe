@@ -109,3 +109,159 @@ export const processFunnelData = (
     sortedValues: dataPairs.map((pair) => pair.value),
   };
 };
+
+// interaction trend chart helpers
+
+const convertSecondsToMinutes = (seconds: number) =>
+  parseFloat((seconds / 60).toFixed(2));
+
+export const getInteractionTrendChartOptions = (
+  hours: number[]
+): ApexOptions => ({
+  chart: {
+    type: "bar",
+    height: 350,
+    stacked: true,
+    toolbar: {
+      show: true,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: true,
+      },
+    },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+      columnWidth: "80%", // Adjust to give a funnel-like effect
+      dataLabels: {
+        total: {
+          enabled: true,
+          offsetX: 0,
+          style: {
+            fontSize: "14px",
+            fontWeight: 900,
+            color: "#333",
+          },
+        },
+      },
+    },
+  },
+  stroke: {
+    width: 1,
+    colors: ["#fff"],
+  },
+  title: {
+    text: "Interaction Trend",
+    align: "center",
+    style: {
+      fontSize: "20px",
+      fontWeight: "bold",
+      color: "#333",
+    },
+  },
+  xaxis: {
+    categories: hours,
+    labels: {
+      formatter: function (val: string) {
+        return val;
+      },
+      style: {
+        fontSize: "12px",
+        colors: ["#333"],
+      },
+    },
+    axisBorder: {
+      show: true,
+      color: "#333",
+    },
+    axisTicks: {
+      show: true,
+      color: "#333",
+    },
+    title: {
+      text: "Counts", // Label for x-axis
+      style: {
+        fontSize: "14px",
+        fontWeight: "bold",
+        color: "#333",
+      },
+    },
+  },
+  yaxis: {
+    title: {
+      text: "Hours", // Label for y-axis
+      style: {
+        fontSize: "14px",
+        fontWeight: "bold",
+        color: "#333",
+      },
+    },
+    labels: {
+      formatter: function (value: number) {
+        return `${value}`;
+      },
+      style: {
+        fontSize: "12px",
+        colors: ["#333"],
+      },
+    },
+  },
+  tooltip: {
+    y: {
+      formatter: function (val: number) {
+        return val + " ";
+      },
+    },
+    theme: "dark", // Use theme for background color and text color
+    style: {
+      fontSize: "12px",
+    },
+  },
+  fill: {
+    opacity: 1,
+    colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560"],
+  },
+  legend: {
+    position: "top",
+    horizontalAlign: "left",
+    offsetX: 40,
+    labels: {
+      colors: "#333",
+      useSeriesColors: true,
+    },
+  },
+});
+
+export const processInteractionTrendChartData = (data: InteractionTrend[]) => {
+  const hours = data.map((item) => item.hour);
+
+  return {
+    series: [
+      {
+        name: "Searches",
+        data: data.map((item) => item.searches) as number[],
+      },
+      {
+        name: "Views",
+        data: data.map((item) => item.views) as number[],
+      },
+      {
+        name: "Clicks",
+        data: data.map((item) => item.clicks) as number[],
+      },
+      {
+        name: "Time Spent",
+        data: data.map((item) =>
+          convertSecondsToMinutes(item.time_spend)
+        ) as number[],
+      },
+    ],
+    hours,
+  };
+};
