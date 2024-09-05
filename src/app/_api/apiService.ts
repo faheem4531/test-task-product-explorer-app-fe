@@ -2,19 +2,24 @@
 import { getSessionId } from "../_utils/helpers";
 import apiClient from "./apiClient";
 
-export interface ApiResponse {
-  data: IProduct[];
-  page: number;
-  limit: number;
-  totalDocuments: number;
-  totalPages: number;
-}
+export const getProductRecommendations = async (
+  query: string
+): Promise<ProductRecommendationsResponse> => {
+  try {
+    const response = await apiClient.get(`/products/openai/recommendations`, {
+      params: { query },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw handleError(error, "Failed to fetch product recommendations");
+  }
+};
 
 export const getProducts = async (
   searchQuery: string = "",
   page: number = 1,
   limit: number = 60
-): Promise<ApiResponse> => {
+): Promise<ProductApiResponse> => {
   try {
     const sessionId = getSessionId();
     const response = await apiClient.get("/products", {

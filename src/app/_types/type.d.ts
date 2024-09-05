@@ -30,6 +30,15 @@ interface MostInteractedItem {
   name: string;
   data: InteractionData[];
 }
+
+// interfaces/apiService.ts
+interface ProductApiResponse {
+  data: IProduct[];
+  page: number;
+  limit: number;
+  totalDocuments: number;
+  totalPages: number;
+}
 interface MostInteractedProductsResponse {
   searches: MostInteractedItem[];
   products: MostInteractedItem[];
@@ -40,4 +49,9 @@ interface ConversionFunnelResponse {
   views: number;
   clicks: number;
   totalTimeSpent: number;
+}
+
+interface ProductRecommendationsResponse {
+  recommendationText: string;
+  recommendedProducts: IProduct[];
 }
