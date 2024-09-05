@@ -21,17 +21,18 @@ interface InteractionTrend {
   hour: number;
 }
 
+interface InteractionData {
+  x: string;
+  y: number;
+}
+
+interface MostInteractedItem {
+  name: string;
+  data: InteractionData[];
+}
 interface MostInteractedProductsResponse {
-  searches: {
-    _id: string;
-    count: number;
-  }[];
-  products: {
-    totalInteractions: number;
-    totalClicks: number;
-    totalTimeSpent: number;
-    name: string;
-  }[];
+  searches: MostInteractedItem[];
+  products: MostInteractedItem[];
 }
 
 interface ConversionFunnelResponse {

@@ -265,3 +265,89 @@ export const processInteractionTrendChartData = (data: InteractionTrend[]) => {
     hours,
   };
 };
+
+// most interacted products chart helpers
+
+export const generateHeatmapOptions = (title: string): ApexOptions => {
+  return {
+    chart: {
+      type: "heatmap",
+      height: 350,
+    },
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.5,
+        colorScale: {
+          ranges: [
+            {
+              from: 0,
+              to: 1,
+              color: "#00A100",
+              name: "Low",
+            },
+            {
+              from: 2,
+              to: 4,
+              color: "#128FD9",
+              name: "Moderate",
+            },
+            {
+              from: 5,
+              to: 10,
+              color: "#FFB200",
+              name: "High",
+            },
+            {
+              from: 11,
+              to: 100,
+              color: "#FF0000",
+              name: "Extreme",
+            },
+          ],
+        },
+      },
+    },
+    title: {
+      text: `Most Interacted ${title} visualization`,
+      align: "center",
+      style: {
+        fontSize: "20px",
+        fontWeight: "bold",
+        color: "#333",
+      },
+    },
+    xaxis: {
+      type: "category",
+      title: {
+        text: "Interaction Types",
+        style: {
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#333",
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: title,
+        style: {
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#333",
+        },
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: "12px",
+        colors: ["#333"],
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: (val) => `${val}`,
+      },
+    },
+  };
+};

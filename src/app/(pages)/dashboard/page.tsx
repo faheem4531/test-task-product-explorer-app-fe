@@ -14,13 +14,14 @@ import {
 import InteractionTrendBarChart from "./components/InteractionTrendBarChart";
 import FunnelChart from "./components/FunnelChart";
 import { AppLoader } from "@/app/_components";
+import HeatmapChart from "./components/HeatmapChart";
 
 const Dashboard: React.FC = () => {
   const [interactionTrends, setInteractionTrends] = useState<
     InteractionTrend[]
   >([]);
   const [mostInteractedProducts, setMostInteractedProducts] =
-    useState<MostInteractedProductsResponse | null>(null);
+    useState<MostInteractedProductsResponse>({ products: [], searches: [] });
   const [conversionFunnel, setConversionFunnel] =
     useState<ConversionFunnelResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -61,6 +62,16 @@ const Dashboard: React.FC = () => {
         {interactionTrends && (
           <InteractionTrendBarChart data={interactionTrends} />
         )}
+        {mostInteractedProducts.products.length &&
+          mostInteractedProducts.searches.length && (
+            <HeatmapChart
+              data={[
+                ...mostInteractedProducts.products,
+                ...mostInteractedProducts.searches,
+              ]}
+              title={"Products and searches"}
+            />
+          )}
       </Box>
     </AppLoader>
   );
