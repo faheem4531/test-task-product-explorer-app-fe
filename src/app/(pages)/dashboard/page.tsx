@@ -11,7 +11,7 @@ import {
   getMostInteractedProducts,
   getConversionFunnel,
 } from "@/app/_api/apiService";
-import BarChart from "./components/BarChart";
+import InteractionTrendBarChart from "./components/InteractionTrendBarChart";
 import FunnelChart from "./components/FunnelChart";
 import { AppLoader } from "@/app/_components";
 
@@ -58,10 +58,9 @@ const Dashboard: React.FC = () => {
         }}
       >
         {conversionFunnel && <FunnelChart data={conversionFunnel} />}
-        {/* <BarChart
-          data={interactionTrends}
-          mostInteractedProducts={mostInteractedProducts}
-        /> */}
+        {interactionTrends && (
+          <InteractionTrendBarChart data={interactionTrends} />
+        )}
       </Box>
     </AppLoader>
   );
