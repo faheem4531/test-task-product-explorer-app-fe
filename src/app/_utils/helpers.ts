@@ -157,7 +157,7 @@ export const getInteractionTrendChartOptions = (
     colors: ["#fff"],
   },
   title: {
-    text: "Interaction Trend",
+    text: "Interaction Trend (last 24 hours)",
     align: "center",
     style: {
       fontSize: "20px",
