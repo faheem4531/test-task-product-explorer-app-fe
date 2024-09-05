@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, title, description
                 </Typography>
             </Box>
             <Box sx={{ padding: "10px 10px 20px" }}>
-                <Typography fontSize={"20px"} fontWeight={500}>{title}</Typography>
+                <Typography height={"60px"} fontSize={"20px"} fontWeight={500}>{title}</Typography>
                 <Typography
                     fontSize="14px"
                     m="10px 0"

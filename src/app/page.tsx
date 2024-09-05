@@ -17,7 +17,7 @@ const Home = () => {
     <Box sx={{
       display: 'flex',
       height: "100vh",
-      padding: { md: "40px 200px", sm: "30px", xs: "20px" },
+      padding: { md: "40px 100px", sm: "30px", xs: "20px" },
       gap: "20px"
     }}>
       <Box sx={{
@@ -34,7 +34,7 @@ const Home = () => {
         </Link>
       </Box>
       <Box sx={{
-        bgcolor: "#b7c0bb",
+        bgcolor: "#173B45",
         color: "#546976",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
         "&:hover": {
@@ -44,6 +44,19 @@ const Home = () => {
       }}>
         <Link href={"/products"} >
           Products
+        </Link>
+      </Box>
+      <Box sx={{
+        bgcolor: "#1A4870",
+        color: "#546976",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15)",
+        "&:hover": {
+          bgcolor: "#929c97"
+        },
+        ...containerStyle
+      }}>
+        <Link href={"/product-advisor"} >
+         Product Advisor
         </Link>
       </Box>
     </Box>

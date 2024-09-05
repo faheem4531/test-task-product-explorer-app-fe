@@ -1,7 +1,7 @@
 import React from "react";
 
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Box, Grid, CircularProgress, Typography } from "@mui/material";
 
 interface FlatListProps<T> {
   data: T[];
