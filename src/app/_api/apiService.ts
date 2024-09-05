@@ -67,6 +67,41 @@ export const trackProductTimeSpend = async (
   }
 };
 
+export const getInteractionTrends = async (
+  lastHours: number = 24
+): Promise<InteractionTrend[]> => {
+  try {
+    const response = await apiClient.get(`/dashboard/interaction-trends`, {
+      params: { lastHours },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw handleError(error, "Failed to fetch interaction trends");
+  }
+};
+
+export const getMostInteractedProducts =
+  async (): Promise<MostInteractedProductsResponse> => {
+    try {
+      const response = await apiClient.get(
+        `/dashboard/most-interacted-products`
+      );
+      return response.data;
+    } catch (error: any) {
+      throw handleError(error, "Failed to fetch most interacted products");
+    }
+  };
+
+export const getConversionFunnel =
+  async (): Promise<ConversionFunnelResponse> => {
+    try {
+      const response = await apiClient.get(`/dashboard/conversion-funnel`);
+      return response.data;
+    } catch (error: any) {
+      throw handleError(error, "Failed to fetch conversion funnel data");
+    }
+  };
+
 export const handleError = (error: any, defaultMessage: string): void => {
   if (error.response) {
     // Server responded with an error
