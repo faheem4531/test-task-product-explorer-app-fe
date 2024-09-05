@@ -62,16 +62,12 @@ const Dashboard: React.FC = () => {
         {interactionTrends && (
           <InteractionTrendBarChart data={interactionTrends} />
         )}
-        {mostInteractedProducts.products.length &&
-          mostInteractedProducts.searches.length && (
-            <HeatmapChart
-              data={[
-                ...mostInteractedProducts.products,
-                ...mostInteractedProducts.searches,
-              ]}
-              title={"Products and searches"}
-            />
-          )}
+        {mostInteractedProducts.products.length && (
+          <HeatmapChart
+            data={mostInteractedProducts.products}
+            title={"Products "}
+          />
+        )}
       </Box>
     </AppLoader>
   );
