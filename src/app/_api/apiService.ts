@@ -6,7 +6,7 @@ export const getProductRecommendations = async (
   query: string
 ): Promise<ProductRecommendationsResponse> => {
   try {
-    const response = await apiClient.get(`/products/openai/recommendations`, {
+    const response = await apiClient.get(`/products/groqai/recommendations`, {
       params: { query },
     });
     return response.data;

@@ -9,14 +9,16 @@ import {
   Button,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
+  Alert,
 } from "@mui/material";
-
-import { getProductRecommendations } from "@/app/_api/apiService";
-import ProductCard from "@/app/_components/productCard/ProductCard";
 import SearchIcon from "@mui/icons-material/Search";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import { ThreeDots } from "react-loader-spinner";
+
+// local imports
+import ProductCard from "@/app/_components/productCard/ProductCard";
+import { getProductRecommendations } from "@/app/_api/apiService";
 
 const ProductAdvisor = () => {
   const router = useRouter();
@@ -25,6 +27,7 @@ const ProductAdvisor = () => {
   const [recomendation, setRecomendation] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -38,13 +41,22 @@ const ProductAdvisor = () => {
     if (searchTerm) {
       setLoading(true);
       setSearchPerformed(true);
-      const { recommendationText, recommendedProducts } = await getProductRecommendations(searchTerm);
-      setRecomendation(recommendationText);
-      setProducts(recommendedProducts);
-      setLoading(false);
-      setSearchTerm("");
+      setError(""); // Clear any existing errors
+      try {
+        const { recommendationText, recommendedProducts } =
+          await getProductRecommendations(searchTerm);
+        setRecomendation(recommendationText);
+        setProducts(recommendedProducts);
+      } catch (err: any) {
+        setError(
+          err?.message || "An error occurred while fetching recommendations."
+        );
+      } finally {
+        setLoading(false);
+        setSearchTerm("");
+      }
     } else {
-      console.log("enter any product");
+      setError("Please enter a product name to search.");
     }
   };
 
@@ -80,7 +92,10 @@ const ProductAdvisor = () => {
                 <SearchIcon />
               </InputAdornment>
             ),
-            sx: { borderRadius: "50px", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" },
+            sx: {
+              borderRadius: "50px",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            },
           }}
           sx={{
             "& .MuiOutlinedInput-root": {
@@ -91,7 +106,7 @@ const ProductAdvisor = () => {
                 borderColor: "#29343B",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "#29343B"
+                borderColor: "#29343B",
               },
             },
           }}
@@ -116,13 +131,25 @@ const ProductAdvisor = () => {
           Search
         </Button>
       </Box>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+
       <Box>
         <Typography variant="h6" color="#29343b" mb={2}>
           Results:
         </Typography>
 
         {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="200px"
+          >
             <ThreeDots visible={true} height="80" width="80" color="#29343b" />
           </Box>
         ) : (
@@ -136,17 +163,20 @@ const ProductAdvisor = () => {
               boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
             }}
           >
-            {searchPerformed && products.length === 0 ? (
-              <Typography
-                variant="h6"
-                color="#29343B"
-                textAlign="center"
-              >
+            {searchPerformed && recomendation.length === 0 ? (
+              <Typography variant="h6" color="#29343B" textAlign="center">
                 No products found. Try a different search.
               </Typography>
             ) : (
               <>
-                <Typography>{recomendation}</Typography>
+                <Typography
+                  variant="h6"
+                  color="#29343B"
+                  textAlign="center"
+                  whiteSpace={"pre-line"}
+                >
+                  {recomendation}
+                </Typography>
                 <Grid container spacing={2} mt={4}>
                   {products.map((item) => (
                     <Grid size={{ xs: 12, md: 4, sm: 6, lg: 3 }} key={item._id}>
@@ -163,7 +193,8 @@ const ProductAdvisor = () => {
                     </Grid>
                   ))}
                 </Grid>
-              </>)}
+              </>
+            )}
           </Box>
         )}
       </Box>
