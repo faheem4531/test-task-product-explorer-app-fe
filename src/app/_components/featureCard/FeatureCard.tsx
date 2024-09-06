@@ -10,7 +10,20 @@ interface FeatureCardProps {
   textColor: string;
 }
 
-const FeatureCard = ({ href, bgcolor, hoverBgColor, boxShadow, text, textColor }: FeatureCardProps) => {
+const FeatureCard = ({
+  href,
+  bgcolor,
+  hoverBgColor,
+  boxShadow,
+  text,
+  textColor,
+}: FeatureCardProps) => {
+  const linkStyle = {
+    width: "100%",
+    height: "100%",
+    textDecoration: "none",
+  };
+
   const containerStyle = {
     width: "100%",
     height: "100%",
@@ -20,9 +33,8 @@ const FeatureCard = ({ href, bgcolor, hoverBgColor, boxShadow, text, textColor }
     alignItems: "center",
     fontSize: "35px",
     fontWeight: 500,
-    textAlign: "center",
+    textAlign: "center" as const, // Type assertion to fix type error
     transition: "background-color 0.3s ease-in-out",
-    textDecoration: "none",
     color: textColor,
     boxShadow: boxShadow,
     bgcolor: bgcolor,
@@ -32,10 +44,8 @@ const FeatureCard = ({ href, bgcolor, hoverBgColor, boxShadow, text, textColor }
   };
 
   return (
-    <Link href={href} passHref style={containerStyle}>
-      <Box sx={containerStyle}>
-        {text}
-      </Box>
+    <Link href={href} passHref style={linkStyle}>
+      <Box sx={containerStyle}>{text}</Box>
     </Link>
   );
 };
