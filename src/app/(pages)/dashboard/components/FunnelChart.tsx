@@ -1,8 +1,8 @@
 "use client";
 
 // react imports
-import React from "react";
 import dynamic from "next/dynamic";
+import React from "react";
 
 // third party imports
 import { Box } from "@mui/material";
@@ -14,8 +14,16 @@ import { getFunnelOptions, processFunnelData } from "@/app/_utils/helpers";
 // Dynamically import the Chart component
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const FunnelChart: React.FC<{ data: ConversionFunnelResponse }> = ({
+
+
+interface FunnelChartProps {
+  data: ConversionFunnelResponse;
+  styles: object;
+}
+
+const FunnelChart: React.FC<FunnelChartProps> = ({
   data,
+  styles
 }) => {
   const { sortedCategories, sortedValues } = processFunnelData(data);
   const options: ApexOptions = getFunnelOptions(sortedCategories, sortedValues);
@@ -27,18 +35,8 @@ const FunnelChart: React.FC<{ data: ConversionFunnelResponse }> = ({
   ];
 
   return (
-    <Box
-      sx={{
-        bgcolor: "#f4f4f4",
-        padding: "30px",
-        borderRadius: "12px",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-        maxWidth: "700px",
-        margin: "20px auto",
-        textAlign: "center",
-      }}
-    >
-      <Chart options={options} series={series} type="bar" height={350} />
+    <Box sx={styles}>
+      <Chart options={options} series={series} type="bar" height={450} />
     </Box>
   );
 };

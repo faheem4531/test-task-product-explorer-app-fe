@@ -7,14 +7,14 @@ import { Box, Typography } from "@mui/material";
 
 // hooks and components imports
 import {
+  getConversionFunnel,
   getInteractionTrends,
   getMostInteractedProducts,
-  getConversionFunnel,
 } from "@/app/_api/apiService";
-import InteractionTrendBarChart from "./components/InteractionTrendBarChart";
-import FunnelChart from "./components/FunnelChart";
 import { AppLoader } from "@/app/_components";
+import FunnelChart from "./components/FunnelChart";
 import HeatmapChart from "./components/HeatmapChart";
+import InteractionTrendBarChart from "./components/InteractionTrendBarChart";
 
 const Dashboard: React.FC = () => {
   const [interactionTrends, setInteractionTrends] = useState<
@@ -50,26 +50,58 @@ const Dashboard: React.FC = () => {
 
   if (error) return <Typography color="error">{error}</Typography>;
 
+  const graphStyles = {
+    bgcolor: "#f3f3f3",
+    padding: "40px",
+    borderRadius: "16px",
+    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+    maxWidth: "1200px",
+    margin: "40px auto",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    "&:hover": {
+      transform: "translateY(-10px)",
+      boxShadow: "0 8px 30px rgba(0, 0, 0, 0.25)",
+    },
+  }
   return (
-    <AppLoader loading={loading}>
-      <Box
+
+    <Box
+      sx={{
+        m: "50px 50px",
+      }}
+    >
+      <Typography
         sx={{
-          height: "100vh",
-          m: "100px auto",
+          fontSize: "38px",
+          fontWeight: "bold",
+          mb: "20px",
+          color: "#29343b",
+          textAlign: "center",
         }}
       >
-        {conversionFunnel && <FunnelChart data={conversionFunnel} />}
-        {interactionTrends && (
-          <InteractionTrendBarChart data={interactionTrends} />
-        )}
-        {mostInteractedProducts.products.length && (
-          <HeatmapChart
-            data={mostInteractedProducts.products}
-            title={"Products "}
-          />
-        )}
-      </Box>
-    </AppLoader>
+        Data Visualization
+      </Typography>
+      <AppLoader loading={loading}>
+        <Box
+          sx={{
+            height: "100vh",
+            m: "100px auto",
+          }}
+        >
+          {conversionFunnel && <FunnelChart data={conversionFunnel} styles={graphStyles} />}
+          {interactionTrends && (
+            <InteractionTrendBarChart data={interactionTrends} styles={graphStyles} />
+          )}
+          {mostInteractedProducts.products.length && (
+            <HeatmapChart
+              data={mostInteractedProducts.products}
+              title={"Products "}
+              styles={graphStyles}
+            />
+          )}
+        </Box>
+      </AppLoader>
+    </Box>
   );
 };
 
