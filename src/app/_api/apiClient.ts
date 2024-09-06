@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: 'https://prouct-explorer-931631ff5a91.herokuapp.com', 
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
