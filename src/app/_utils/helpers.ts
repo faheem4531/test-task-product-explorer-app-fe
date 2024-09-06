@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import { ApexOptions } from "apexcharts";
+import { v4 as uuidv4 } from "uuid";
 
 // session helpers
 export const getSessionId = (): string => {
@@ -138,18 +138,7 @@ export const getInteractionTrendChartOptions = (
   plotOptions: {
     bar: {
       horizontal: true,
-      columnWidth: "80%", // Adjust to give a funnel-like effect
-      dataLabels: {
-        total: {
-          enabled: true,
-          offsetX: 0,
-          style: {
-            fontSize: "14px",
-            fontWeight: 900,
-            color: "#333",
-          },
-        },
-      },
+      columnWidth: "80%",
     },
   },
   stroke: {
@@ -272,7 +261,7 @@ export const generateHeatmapOptions = (title: string): ApexOptions => {
   return {
     chart: {
       type: "heatmap",
-      height: 350,
+      height: 450,
     },
     plotOptions: {
       heatmap: {
@@ -329,12 +318,21 @@ export const generateHeatmapOptions = (title: string): ApexOptions => {
     },
     yaxis: {
       title: {
-        text: title,
+        text: title, 
         style: {
-          fontSize: "14px",
+          fontSize: "14px", 
           fontWeight: "bold",
           color: "#333",
         },
+        offsetX: 10, 
+      },
+      labels: {
+        show: true,
+        style: {
+          fontSize: "9px",
+          colors: ["#333"],
+        },
+        offsetX: 5,
       },
     },
     dataLabels: {

@@ -17,13 +17,9 @@ import HeatmapChart from "./components/HeatmapChart";
 import InteractionTrendBarChart from "./components/InteractionTrendBarChart";
 
 const Dashboard: React.FC = () => {
-  const [interactionTrends, setInteractionTrends] = useState<
-    InteractionTrend[]
-  >([]);
-  const [mostInteractedProducts, setMostInteractedProducts] =
-    useState<MostInteractedProductsResponse>({ products: [], searches: [] });
-  const [conversionFunnel, setConversionFunnel] =
-    useState<ConversionFunnelResponse | null>(null);
+  const [interactionTrends, setInteractionTrends] = useState<InteractionTrend[]>([]);
+  const [mostInteractedProducts, setMostInteractedProducts] = useState<MostInteractedProductsResponse>({ products: [], searches: [] });
+  const [conversionFunnel, setConversionFunnel] = useState<ConversionFunnelResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,21 +46,29 @@ const Dashboard: React.FC = () => {
 
   if (error) return <Typography color="error">{error}</Typography>;
 
+  // Graph styles
   const graphStyles = {
     bgcolor: "#f3f3f3",
     padding: "40px",
     borderRadius: "16px",
     boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
     maxWidth: "1200px",
+    minWidth: "600px",
+    overflowX: "auto",
+    whiteSpace: "nowrap",
     margin: "40px auto",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
     "&:hover": {
       transform: "translateY(-10px)",
       boxShadow: "0 8px 30px rgba(0, 0, 0, 0.25)",
     },
-  }
-  return (
+  };
 
+  const hasConversionFunnelData = conversionFunnel && Object.keys(conversionFunnel).length > 0;
+  const hasInteractionTrendsData = interactionTrends.length > 0;
+  const hasMostInteractedProductsData = mostInteractedProducts.products.length > 0;
+
+  return (
     <Box
       sx={{
         m: "50px 50px",
@@ -82,20 +86,17 @@ const Dashboard: React.FC = () => {
         Data Visualization
       </Typography>
       <AppLoader loading={loading}>
-        <Box
-          sx={{
-            height: "100vh",
-            m: "100px auto",
-          }}
-        >
-          {conversionFunnel && <FunnelChart data={conversionFunnel} styles={graphStyles} />}
-          {interactionTrends && (
+        <Box margin="0 auto" >
+          {hasConversionFunnelData && (
+            <FunnelChart data={conversionFunnel} styles={graphStyles} />
+          )}
+          {hasInteractionTrendsData && (
             <InteractionTrendBarChart data={interactionTrends} styles={graphStyles} />
           )}
-          {mostInteractedProducts.products.length && (
+          {hasMostInteractedProductsData && (
             <HeatmapChart
               data={mostInteractedProducts.products}
-              title={"Products "}
+              title={"Products"}
               styles={graphStyles}
             />
           )}

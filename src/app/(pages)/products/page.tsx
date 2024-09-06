@@ -63,6 +63,20 @@ const ProductListing = () => {
                 <SearchIcon />
               </InputAdornment>
             ),
+            sx: { borderRadius: "50px", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#29343B",
+              },
+              "&:hover fieldset": {
+                borderColor: "#29343B",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#29343B"
+              },
+            },
           }}
         />
       </Box>
