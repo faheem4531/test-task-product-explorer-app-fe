@@ -93,7 +93,7 @@ export const processFunnelData = (
   sortedCategories: string[];
   sortedValues: number[];
 } => {
-  const categories = ["Searches", "Views", "Clicks", "Time Spent"];
+  const categories = ["Searches", "Views", "Clicks", "Time Spent (mins)"];
   const values = [data.searches, data.views, data.clicks, data.totalTimeSpent];
 
   // Combine and sort data
@@ -228,7 +228,7 @@ export const getInteractionTrendChartOptions = (
 });
 
 export const processInteractionTrendChartData = (data: InteractionTrend[]) => {
-  const hours = data.map((item) => (item.hour + 5) % 24);
+  const hours = data.map((item) => (item.hour + 7) % 24);
 
   return {
     series: [
@@ -245,7 +245,7 @@ export const processInteractionTrendChartData = (data: InteractionTrend[]) => {
         data: data.map((item) => item.clicks) as number[],
       },
       {
-        name: "Time Spent",
+        name: "Time Spent (mins)",
         data: data.map((item) =>
           convertSecondsToMinutes(item.time_spend)
         ) as number[],
