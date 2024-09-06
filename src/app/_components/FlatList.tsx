@@ -61,7 +61,7 @@ const FlatList = <T,>({
         ) : null
       }
       endMessage={
-        error ? null : (
+        !error && data.length > 0  ? (
           <Box
             sx={{
               display: "flex",
@@ -74,7 +74,7 @@ const FlatList = <T,>({
           >
             {endMessage || <Typography>No more items to load.</Typography>}
           </Box>
-        )
+        ) : null
       }
       style={{ overflow: "hidden" }}
     >
